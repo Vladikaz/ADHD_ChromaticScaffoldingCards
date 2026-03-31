@@ -3,24 +3,25 @@ name: Deploy Edge Function
 on:
   push:
     branches:
-      - main # Если у тебя ветка называется master, замени на master
+      - main
     paths:
-      - 'supabase/functions/**' # Убрали adhdapp/ из пути
-  workflow_dispatch: # Чтобы кнопка "Force Run" работала
+      - 'supabase/functions/**'
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      - uses: supabase/setup-cli@v1
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
         with:
           version: latest
 
-      - name: Deploy Function
+      - name: Deploy Edge Function
         run: |
-          # Мы убрали команду cd adhdapp, так как файлы уже в корне
           supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_ID }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
           supabase functions deploy generate-content --project-ref ${{ secrets.SUPABASE_PROJECT_ID }}
         env:
