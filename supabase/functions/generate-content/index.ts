@@ -60,7 +60,7 @@ serve(async (req) => {
     const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
     if (!GEMINI_API_KEY) throw new Error("GEMINI_API_KEY is not configured");
 
-    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemma-3-27b-it:generateContent?key=${GEMINI_API_KEY}`;
+    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
 
     const response = await fetch(API_URL, {
       method: "POST",
@@ -71,7 +71,7 @@ serve(async (req) => {
         }],
         generationConfig: {
           temperature: 0.7,
-          
+          responseMimeType: "application/json",
         },
       }),
     });
