@@ -3,9 +3,10 @@ name: Deploy Edge Function
 on:
   push:
     branches:
-      - main # Or your branch name
+      - main # Ensure this matches your branch name (main or master)
     paths:
-      - 'supabase/functions/**'
+      - 'adhdapp/supabase/functions/**'
+  workflow_dispatch: # THIS LINE ENABLES THE MANUAL "FORCE" BUTTON
 
 jobs:
   deploy:
@@ -19,6 +20,7 @@ jobs:
 
       - name: Deploy Function
         run: |
+          cd adhdapp
           supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_ID }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
           supabase functions deploy generate-content --project-ref ${{ secrets.SUPABASE_PROJECT_ID }}
         env:
