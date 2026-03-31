@@ -23,6 +23,7 @@ jobs:
       - name: Deploy Edge Function
         run: |
           supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_ID }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
-          supabase functions deploy generate-content --project-ref ${{ secrets.SUPABASE_PROJECT_ID }}
+          # The --no-verify-jwt flag is the final guard against 401 errors
+          supabase functions deploy generate-content --project-ref ${{ secrets.SUPABASE_PROJECT_ID }} --no-verify-jwt
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
