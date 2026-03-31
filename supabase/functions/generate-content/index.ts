@@ -71,7 +71,7 @@ serve(async (req) => {
         }],
         generationConfig: {
           temperature: 0.7,
-          responseMimeType: "application/json",
+          
         },
       }),
     });
